@@ -1,0 +1,32 @@
+from tweepy import *
+
+import pandas as pd
+import csv
+import re
+import string
+import preprocessor as p
+import tweepy as tw
+
+#API Key and Access key
+consumer_key= '##################'
+consumer_secret= '#############3'
+access_token= '####'
+access_token_secret= '###'
+
+#authicate user using the consumer key
+auth = tw.OAuthHandler(consumer_key, consumer_secret)
+#set access using acces key
+auth.set_access_token(access_token, access_token_secret)
+#call api fucn to authenticte
+api = tw.API(auth, wait_on_rate_limit=True)
+
+# Provide the query you want to pull the data. For example, pulling data for the mobile phone ABC
+query ="COVID19"
+# Fetching tweets
+Tweets = api.search(query, count = 1000,lang='en',exclude='retweets',tweet_mode='extended')
+print(Tweets)
+
+df = pd.DataFrame(Tweets) 
+  
+# saving the dataframe 
+df.to_csv('file1.csv') 
